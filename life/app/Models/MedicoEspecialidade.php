@@ -14,6 +14,6 @@ class MedicoEspecialidade extends Model
 
     protected $fillable = [
         'med_codigo',
-        'espec_codigp',
+        'espec_codigo',
     ];
 }
