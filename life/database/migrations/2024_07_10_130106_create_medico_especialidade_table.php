@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('medico_especialidade', function (Blueprint $table) {
             $table->id('me_codigo');
             $table->unsignedBigInteger('med_codigo');
-            $table->unsignedBigInteger('espec_codigp');
+            $table->unsignedBigInteger('espec_codigo');
             $table->foreign('med_codigo')->references('med_codigo')->on('medico')->onDelete('cascade');
-            $table->foreign('espec_codigp')->references('espec_codigo')->on('especialidade')->onDelete('cascade');
+            $table->foreign('espec_codigo')->references('espec_codigo')->on('especialidade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
