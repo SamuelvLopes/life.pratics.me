@@ -12,6 +12,10 @@ return new class extends Migration
             $table->id('med_codigo');
             $table->string('med_crm');
             $table->string('med_nome');
+            $table->string('med_email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('med_password');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

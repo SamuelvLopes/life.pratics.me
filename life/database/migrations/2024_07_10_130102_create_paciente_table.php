@@ -12,6 +12,10 @@ return new class extends Migration
             $table->id('pac_codigo');
             $table->date('pac_data_nascimento');
             $table->string('pac_nome');
+            $table->string('pac_email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('pac_password');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

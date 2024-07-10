@@ -44,6 +44,18 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'paciente' => [
+            'driver' => 'jwt',
+            'provider' => 'pacientes',
+        ],
+        'medico' => [
+            'driver' => 'jwt',
+            'provider' => 'medicos',
+        ],
+        'admin' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -67,6 +79,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'pacientes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Paciente::class,
+        ],
+        'medicos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Medico::class,
         ],
 
         // 'users' => [
