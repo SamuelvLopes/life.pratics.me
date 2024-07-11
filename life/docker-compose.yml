@@ -9,8 +9,8 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            - '${APP_PORT:-80}'
+            - '${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -31,11 +31,11 @@ services:
     https-portal:
         image: steveltn/https-portal:1
         ports:
-            - '80:80'
-            - '443:443'
+            - '80'
+            - '443:9900'
         environment:
-            DOMAINS: 'example.test -> http://laravel.test:80'
-            STAGE: 'local'
+            DOMAINS: 'life.pratics.me -> http://laravel.test:80'
+            STAGE: 'production'
         depends_on:
             - laravel.test
 
