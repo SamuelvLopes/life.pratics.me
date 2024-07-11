@@ -12,8 +12,11 @@ class Medico extends Model
 
     protected $table = 'medico';
 
+    protected $primaryKey = 'med_codigo';
     protected $fillable = [
         'med_crm',
         'med_nome',
+        'med_email',
+        'med_password',
     ];
 }

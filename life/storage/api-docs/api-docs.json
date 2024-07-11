@@ -1,0 +1,162 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "API documentation for the Life Pratics project",
+        "contact": {
+            "email": "support@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API server"
+        }
+    ],
+    "paths": {
+        "/api/paciente/register": {
+            "post": {
+                "tags": [
+                    "Paciente Authentication"
+                ],
+                "summary": "Register a new paciente",
+                "operationId": "68c7649d2c67464c138153f19f381ab8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful registration"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/paciente/login": {
+            "post": {
+                "tags": [
+                    "Paciente Authentication"
+                ],
+                "summary": "Login a paciente",
+                "operationId": "ae756802ad610532129f8f7b462a7a32",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/paciente/logout": {
+            "post": {
+                "tags": [
+                    "Paciente Authentication"
+                ],
+                "summary": "Logout a paciente",
+                "operationId": "cebe76058a9c732fbc8882f9a40b777a",
+                "responses": {
+                    "200": {
+                        "description": "Successful logout"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/paciente/me": {
+            "get": {
+                "tags": [
+                    "Paciente Authentication"
+                ],
+                "summary": "Get the authenticated paciente",
+                "operationId": "104701429d7a763febb4a518449ec075",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admin Authentication",
+            "description": "API Endpoints of Admin Authentication"
+        },
+        {
+            "name": "Paciente Authentication",
+            "description": "API Endpoints of Paciente Authentication"
+        }
+    ]
+}
