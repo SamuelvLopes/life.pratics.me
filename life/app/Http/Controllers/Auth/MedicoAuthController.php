@@ -12,6 +12,25 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MedicoAuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/medico/register",
+     *     tags={"Admin"},
+     *     summary="Register a new medico",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"med_crm", "med_nome", "med_email", "med_password"},
+     *             @OA\Property(property="med_crm", type="string", example="123456"),
+     *             @OA\Property(property="med_nome", type="string", example="Dr. João"),
+     *             @OA\Property(property="med_email", type="string", format="email", example="dr.joao@example.com"),
+     *             @OA\Property(property="med_password", type="string", format="password", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Médico registrado com sucesso"),
+     *     @OA\Response(response=400, description="Erro de validação")
+     * )
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -38,6 +57,23 @@ class MedicoAuthController extends Controller
         ], 201);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/medico/login",
+     *     tags={"Medico"},
+     *     summary="Login for medico",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"med_email", "med_password"},
+     *             @OA\Property(property="med_email", type="string", format="email", example="dr.joao@example.com"),
+     *             @OA\Property(property="med_password", type="string", format="password", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Successful login"),
+     *     @OA\Response(response=401, description="Não autorizado")
+     * )
+     */
     public function login(Request $request)
     {
         $credentials = $request->only('med_email', 'med_password');
@@ -49,12 +85,30 @@ class MedicoAuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/medico/logout",
+     *     tags={"Medico"},
+     *     summary="Logout for medico",
+     *     @OA\Response(response=200, description="Logout realizado com sucesso"),
+     *     security={{"bearerAuth": {}}}
+     * )
+     */
     public function logout(Request $request)
     {
         Auth::guard('medico')->logout();
         return response()->json(['message' => 'Logout realizado com sucesso!'], 200);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/medico/me",
+     *     tags={"Medico"},
+     *     summary="Get medico details",
+     *     @OA\Response(response=200, description="Medico details"),
+     *     security={{"bearerAuth": {}}}
+     * )
+     */
     public function me(Request $request)
     {
         return response()->json(Auth::guard('medico')->user());

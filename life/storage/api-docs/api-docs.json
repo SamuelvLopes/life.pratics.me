@@ -19,13 +19,946 @@
         }
     ],
     "paths": {
-        "/api/paciente/register": {
+        "/especialidades": {
+            "get": {
+                "tags": [
+                    "Especialidades",
+                    "Admin"
+                ],
+                "summary": "Exibe uma lista de especialidades",
+                "operationId": "1ab85db17a14c74ae0522af66aab8704",
+                "responses": {
+                    "200": {
+                        "description": "Lista de especialidades"
+                    }
+                }
+            },
             "post": {
                 "tags": [
-                    "Paciente Authentication"
+                    "Especialidades",
+                    "Admin"
                 ],
-                "summary": "Register a new paciente",
-                "operationId": "68c7649d2c67464c138153f19f381ab8",
+                "summary": "Armazena uma nova especialidade",
+                "operationId": "475d523f2544e35785500f3e694f08bf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Cardiologia"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Especialidade criada com sucesso"
+                    }
+                }
+            }
+        },
+        "/especialidades/{id}": {
+            "get": {
+                "tags": [
+                    "Especialidades",
+                    "Admin"
+                ],
+                "summary": "Exibe uma especialidade específica",
+                "operationId": "d33d924147f7344e8a0bd41fdd856dfd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados da especialidade"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Especialidades",
+                    "Admin"
+                ],
+                "summary": "Atualiza uma especialidade específica",
+                "operationId": "de0e4e120e10685d5d0bd82258f805c4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Neurologia"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Especialidade atualizada com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Especialidades",
+                    "Admin"
+                ],
+                "summary": "Remove uma especialidade específica",
+                "operationId": "fa845b8904abf331a82366579bc66f8a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Especialidade removida com sucesso"
+                    }
+                }
+            }
+        },
+        "/medico": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Lista todos os médicos",
+                "operationId": "9c090414fba5e409412f3f4f97768b68",
+                "responses": {
+                    "200": {
+                        "description": "Lista de médicos"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Cria um novo médico",
+                "operationId": "f04e3c7cab5f3aea85a714159f994ce0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "med_crm": {
+                                        "type": "string"
+                                    },
+                                    "med_nome": {
+                                        "type": "string"
+                                    },
+                                    "med_email": {
+                                        "type": "string"
+                                    },
+                                    "med_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Médico criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/medico/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Exibe um médico específico",
+                "operationId": "45ba76bb99e282edec1fd073241c417c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do médico"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Atualiza um médico existente",
+                "operationId": "af611b4c8109326db2e233b25bb27d2e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "med_crm": {
+                                        "type": "string"
+                                    },
+                                    "med_nome": {
+                                        "type": "string"
+                                    },
+                                    "med_email": {
+                                        "type": "string"
+                                    },
+                                    "med_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Médico atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Remove um médico",
+                "operationId": "d57752c7065c4d05b245f7f141124aca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Médico removido com sucesso"
+                    },
+                    "404": {
+                        "description": "Médico não encontrado"
+                    }
+                }
+            }
+        },
+        "/medico/consultas": {
+            "get": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Lista as consultas do médico autenticado",
+                "operationId": "ac71b35a4e7473373c96707061199cb2",
+                "responses": {
+                    "200": {
+                        "description": "Lista de consultas"
+                    }
+                }
+            }
+        },
+        "/medico/consultas/{consulta_id}": {
+            "get": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Exibe uma consulta específica do médico autenticado",
+                "operationId": "fcdc5a15b7adfe3939eaa38285b35631",
+                "parameters": [
+                    {
+                        "name": "consulta_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes da consulta"
+                    },
+                    "404": {
+                        "description": "Consulta não encontrada"
+                    }
+                }
+            }
+        },
+        "/medico/pacientes": {
+            "get": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Lista os pacientes do médico autenticado",
+                "operationId": "acb35d6138c85f103e679c937d6b322a",
+                "responses": {
+                    "200": {
+                        "description": "Lista de pacientes"
+                    }
+                }
+            }
+        },
+        "/medico/pacientes/{paciente_id}": {
+            "get": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Exibe um paciente específico do médico autenticado",
+                "operationId": "3b9ff9fd5a1e0c9e5d2bea695d3c353d",
+                "parameters": [
+                    {
+                        "name": "paciente_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do paciente"
+                    },
+                    "404": {
+                        "description": "Paciente não encontrado"
+                    }
+                }
+            }
+        },
+        "/pacientes": {
+            "get": {
+                "tags": [
+                    "Admin|Paciente"
+                ],
+                "summary": "Exibe uma lista de pacientes",
+                "operationId": "eec3e4a5bf58cd7743d4b279037e3ebc",
+                "responses": {
+                    "200": {
+                        "description": "Lista de pacientes"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Admin|Paciente"
+                ],
+                "summary": "Armazena um novo paciente no banco de dados",
+                "operationId": "dfe799772046613ad3f7b75167d9756c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "pac_nome": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "pac_data_nascimento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1980-01-01"
+                                    },
+                                    "pac_email": {
+                                        "type": "string",
+                                        "example": "joao.silva@example.com"
+                                    },
+                                    "pac_password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Paciente criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/pacientes/{id}": {
+            "get": {
+                "tags": [
+                    "Admin|Paciente"
+                ],
+                "summary": "Exibe um paciente específico",
+                "operationId": "c9e5621b4983dde500c80317e0b38896",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados do paciente"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Admin|Paciente"
+                ],
+                "summary": "Atualiza um paciente existente no banco de dados",
+                "operationId": "52720f8c7401f8c7518e6d78547d5b25",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "pac_nome": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "pac_data_nascimento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1980-01-01"
+                                    },
+                                    "pac_email": {
+                                        "type": "string",
+                                        "example": "joao.silva@example.com"
+                                    },
+                                    "pac_password": {
+                                        "type": "string",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Paciente atualizado com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Admin|Paciente"
+                ],
+                "summary": "Remove um paciente do banco de dados",
+                "operationId": "c8adedb54e04d8d21199b810d335c543",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paciente removido com sucesso"
+                    }
+                }
+            }
+        },
+        "/pacientes/consultas": {
+            "get": {
+                "tags": [
+                    "Paciente",
+                    "Consulta"
+                ],
+                "summary": "Lista as consultas do paciente autenticado",
+                "operationId": "a0a33999f6435b96bb18f398e8cbc88e",
+                "responses": {
+                    "200": {
+                        "description": "Lista de consultas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Paciente",
+                    "Consulta"
+                ],
+                "summary": "Marca uma nova consulta",
+                "operationId": "4212dfe0faeabb5df082818887e79795",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "med_codigo": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "cons_horario": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-07-11T10:00:00Z"
+                                    },
+                                    "procedimentos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Consulta marcada com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro ao marcar a consulta"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pacientes/consultas/{consulta_id}": {
+            "get": {
+                "tags": [
+                    "Paciente",
+                    "Consulta"
+                ],
+                "summary": "Exibe uma consulta específica do paciente autenticado",
+                "operationId": "4bb557178c693409d5c97859b7698800",
+                "parameters": [
+                    {
+                        "name": "consulta_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados da consulta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cons_codigo": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "cons_horario": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-07-11T10:00:00Z"
+                                        },
+                                        "cons_particular": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "pac_codigo": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "med_codigo": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "procedimentos": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "proc_codigo": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "proc_nome": {
+                                                        "type": "string",
+                                                        "example": "Consulta de rotina"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Consulta não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/planos": {
+            "get": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Exibe uma lista de planos de saúde",
+                "operationId": "b714196faae4dadca97b0af5b6cbeb4d",
+                "responses": {
+                    "200": {
+                        "description": "Lista de planos de saúde"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Armazena um novo plano de saúde",
+                "operationId": "27805ffb4509266202c0d3c42ee0632b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "plano_descricao": {
+                                        "type": "string",
+                                        "example": "Plano Básico"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Plano de saúde criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/planos/{id}": {
+            "get": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Exibe um plano de saúde específico",
+                "operationId": "1912bf15afe4aef96ac8dea9c78336cd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados do plano de saúde"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Atualiza um plano de saúde específico",
+                "operationId": "576a60618b7d6366b59936d27e1a90c5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "plano_descricao": {
+                                        "type": "string",
+                                        "example": "Plano Premium"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plano de saúde atualizado com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Planos de Saúde"
+                ],
+                "summary": "Remove um plano de saúde específico",
+                "operationId": "bb88b39e85d1394e3f5c28e90b764920",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plano de saúde removido com sucesso"
+                    }
+                }
+            }
+        },
+        "/procedimentos": {
+            "get": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Exibe uma lista de procedimentos",
+                "operationId": "1fe7cd48529a6c5c60af2f7b7f5690c7",
+                "responses": {
+                    "200": {
+                        "description": "Lista de procedimentos"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Armazena um novo procedimento",
+                "operationId": "17ac86b054479cb91806b98a70ff24eb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "proc_nome": {
+                                        "type": "string",
+                                        "example": "Consulta Geral"
+                                    },
+                                    "proc_valor": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 150
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Procedimento criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/procedimentos/{id}": {
+            "get": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Exibe um procedimento específico",
+                "operationId": "72511a29341ecfa6b3c5c445d5c28974",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados do procedimento"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Atualiza um procedimento específico",
+                "operationId": "0463bb07accc72ca1731d30575b1f9f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "proc_nome": {
+                                        "type": "string",
+                                        "example": "Consulta Especializada"
+                                    },
+                                    "proc_valor": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 200
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Procedimento atualizado com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Procedimentos"
+                ],
+                "summary": "Remove um procedimento específico",
+                "operationId": "8cb9286fda9ba5955372abe9752453df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Procedimento removido com sucesso"
+                    }
+                }
+            }
+        },
+        "/admin/register": {
+            "post": {
+                "tags": [
+                    "Admin Authentication"
+                ],
+                "summary": "Register a new admin user",
+                "operationId": "30fd0eb0742412a292aee650b49e6b69",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -38,7 +971,7 @@
                                     },
                                     "email": {
                                         "type": "string",
-                                        "example": "john@example.com"
+                                        "example": "johndoe@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -56,21 +989,21 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Successful registration"
+                        "description": "Admin user registered successfully"
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Validation error"
                     }
                 }
             }
         },
-        "/api/paciente/login": {
+        "/admin/login": {
             "post": {
                 "tags": [
-                    "Paciente Authentication"
+                    "Admin Authentication"
                 ],
-                "summary": "Login a paciente",
-                "operationId": "ae756802ad610532129f8f7b462a7a32",
+                "summary": "Login as an admin user",
+                "operationId": "cdfade812131da2a04186cbcc471ecb4",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -79,7 +1012,7 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "john@example.com"
+                                        "example": "johndoe@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -93,7 +1026,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful login"
+                        "description": "Successfully logged in"
                     },
                     "401": {
                         "description": "Unauthorized"
@@ -101,16 +1034,16 @@
                 }
             }
         },
-        "/api/paciente/logout": {
+        "/admin/logout": {
             "post": {
                 "tags": [
-                    "Paciente Authentication"
+                    "Admin Authentication"
                 ],
-                "summary": "Logout a paciente",
-                "operationId": "cebe76058a9c732fbc8882f9a40b777a",
+                "summary": "Logout the admin user",
+                "operationId": "51fb0e2ee9af7af87829ee01515d4a88",
                 "responses": {
                     "200": {
-                        "description": "Successful logout"
+                        "description": "Successfully logged out"
                     }
                 },
                 "security": [
@@ -120,16 +1053,150 @@
                 ]
             }
         },
-        "/api/paciente/me": {
+        "/admin/me": {
             "get": {
                 "tags": [
-                    "Paciente Authentication"
+                    "Admin Authentication"
                 ],
-                "summary": "Get the authenticated paciente",
-                "operationId": "104701429d7a763febb4a518449ec075",
+                "summary": "Get the authenticated admin user",
+                "operationId": "e3303cd5e5c8624feff64280911da831",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Authenticated admin user"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medico/register": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Register a new medico",
+                "operationId": "166d2798a1583106be364de36ee2935c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "med_crm",
+                                    "med_nome",
+                                    "med_email",
+                                    "med_password"
+                                ],
+                                "properties": {
+                                    "med_crm": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "med_nome": {
+                                        "type": "string",
+                                        "example": "Dr. João"
+                                    },
+                                    "med_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "dr.joao@example.com"
+                                    },
+                                    "med_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Médico registrado com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/medico/login": {
+            "post": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Login for medico",
+                "operationId": "7798aae331b0b558fee4d0f079ec0432",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "med_email",
+                                    "med_password"
+                                ],
+                                "properties": {
+                                    "med_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "dr.joao@example.com"
+                                    },
+                                    "med_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                }
+            }
+        },
+        "/medico/logout": {
+            "post": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Logout for medico",
+                "operationId": "c18d33c473ee091fe7afc561aa19798b",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medico/me": {
+            "get": {
+                "tags": [
+                    "Medico"
+                ],
+                "summary": "Get medico details",
+                "operationId": "6c575b4d036f3008f9dc93b59f6e013b",
+                "responses": {
+                    "200": {
+                        "description": "Medico details"
                     }
                 },
                 "security": [
@@ -151,12 +1218,40 @@
     },
     "tags": [
         {
+            "name": "Especialidades",
+            "description": "API Endpoints de Especialidades disponivel restrito admin"
+        },
+        {
+            "name": "Paciente",
+            "description": "API Endpoints de Paciente"
+        },
+        {
+            "name": "Planos de Saúde",
+            "description": "API Endpoints de Planos de Saúde restrito ao admin"
+        },
+        {
+            "name": "Procedimentos",
+            "description": "API Endpoints de Procedimentos RESTRITO AO ADMIN"
+        },
+        {
             "name": "Admin Authentication",
             "description": "API Endpoints of Admin Authentication"
         },
         {
-            "name": "Paciente Authentication",
-            "description": "API Endpoints of Paciente Authentication"
+            "name": "Admin",
+            "description": "Admin"
+        },
+        {
+            "name": "Medico",
+            "description": "Medico"
+        },
+        {
+            "name": "Admin|Paciente",
+            "description": "Admin|Paciente"
+        },
+        {
+            "name": "Consulta",
+            "description": "Consulta"
         }
     ]
 }

@@ -10,14 +10,38 @@ use App\Http\Controllers\Controller;
 
 class MedicoController extends Controller
 {
-    // Exibe uma lista de médicos
+    /**
+     * @OA\Get(
+     *     path="/medico",
+     *     tags={"Admin"},
+     *     summary="Lista todos os médicos",
+     *     @OA\Response(response=200, description="Lista de médicos")
+     * )
+     */
     public function index()
     {
         $medicos = Medico::all();
         return response()->json($medicos);
     }
 
-    // Armazena um novo médico no banco de dados
+    /**
+     * @OA\Post(
+     *     path="/medico",
+     *     tags={"Admin"},
+     *     summary="Cria um novo médico",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="med_crm", type="string"),
+     *             @OA\Property(property="med_nome", type="string"),
+     *             @OA\Property(property="med_email", type="string"),
+     *             @OA\Property(property="med_password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Médico criado com sucesso"),
+     *     @OA\Response(response=400, description="Erro de validação")
+     * )
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -40,14 +64,51 @@ class MedicoController extends Controller
         ], 201);
     }
 
-    // Exibe um médico específico
+    /**
+     * @OA\Get(
+     *     path="/medico/{id}",
+     *     tags={"Admin"},
+     *     summary="Exibe um médico específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Detalhes do médico"),
+     *     @OA\Response(response=404, description="Médico não encontrado")
+     * )
+     */
     public function show($id)
     {
         $medico = Medico::findOrFail($id);
         return response()->json($medico);
     }
 
-    // Atualiza um médico existente no banco de dados
+    /**
+     * @OA\Put(
+     *     path="/medico/{id}",
+     *     tags={"Admin"},
+     *     summary="Atualiza um médico existente",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="med_crm", type="string"),
+     *             @OA\Property(property="med_nome", type="string"),
+     *             @OA\Property(property="med_email", type="string"),
+     *             @OA\Property(property="med_password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Médico atualizado com sucesso"),
+     *     @OA\Response(response=404, description="Médico não encontrado")
+     * )
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -74,7 +135,21 @@ class MedicoController extends Controller
         ]);
     }
 
-    // Remove um médico do banco de dados
+    /**
+     * @OA\Delete(
+     *     path="/medico/{id}",
+     *     tags={"Admin"},
+     *     summary="Remove um médico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Médico removido com sucesso"),
+     *     @OA\Response(response=404, description="Médico não encontrado")
+     * )
+     */
     public function destroy($id)
     {
         $medico = Medico::findOrFail($id);
@@ -85,7 +160,14 @@ class MedicoController extends Controller
         ]);
     }
 
-    // Lista as consultas do médico autenticado
+    /**
+     * @OA\Get(
+     *     path="/medico/consultas",
+     *     tags={"Medico"},
+     *     summary="Lista as consultas do médico autenticado",
+     *     @OA\Response(response=200, description="Lista de consultas")
+     * )
+     */
     public function listConsultas()
     {
         $medico = auth()->user();
@@ -93,7 +175,21 @@ class MedicoController extends Controller
         return response()->json($consultas);
     }
 
-    // Exibe uma consulta específica do médico autenticado
+    /**
+     * @OA\Get(
+     *     path="/medico/consultas/{consulta_id}",
+     *     tags={"Medico"},
+     *     summary="Exibe uma consulta específica do médico autenticado",
+     *     @OA\Parameter(
+     *         name="consulta_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Detalhes da consulta"),
+     *     @OA\Response(response=404, description="Consulta não encontrada")
+     * )
+     */
     public function showConsulta($consulta_id)
     {
         $medico = auth()->user();
@@ -101,7 +197,14 @@ class MedicoController extends Controller
         return response()->json($consulta);
     }
 
-    // Lista os pacientes do médico autenticado
+    /**
+     * @OA\Get(
+     *     path="/medico/pacientes",
+     *     tags={"Medico"},
+     *     summary="Lista os pacientes do médico autenticado",
+     *     @OA\Response(response=200, description="Lista de pacientes")
+     * )
+     */
     public function listPacientes()
     {
         $medico = auth()->user();
@@ -110,7 +213,21 @@ class MedicoController extends Controller
         return response()->json($pacientes);
     }
 
-    // Exibe um paciente específico do médico autenticado
+    /**
+     * @OA\Get(
+     *     path="/medico/pacientes/{paciente_id}",
+     *     tags={"Medico"},
+     *     summary="Exibe um paciente específico do médico autenticado",
+     *     @OA\Parameter(
+     *         name="paciente_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Detalhes do paciente"),
+     *     @OA\Response(response=404, description="Paciente não encontrado")
+     * )
+     */
     public function showPaciente($paciente_id)
     {
         $medico = auth()->user();

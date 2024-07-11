@@ -6,16 +6,48 @@ use App\Models\PlanoSaude;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * @OA\Tag(
+ *     name="Planos de Saúde",
+ *     description="API Endpoints de Planos de Saúde restrito ao admin"
+ * )
+ */
 class PlanoSaudeController extends Controller
 {
-    // Exibe uma lista de planos de saúde
+    /**
+     * @OA\Get(
+     *     path="/planos",
+     *     tags={"Planos de Saúde"},
+     *     summary="Exibe uma lista de planos de saúde",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de planos de saúde"
+     *     )
+     * )
+     */
     public function index()
     {
         $planos = PlanoSaude::all();
         return response()->json($planos);
     }
 
-    // Armazena um novo plano de saúde no banco de dados
+    /**
+     * @OA\Post(
+     *     path="/planos",
+     *     tags={"Planos de Saúde"},
+     *     summary="Armazena um novo plano de saúde",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="plano_descricao", type="string", example="Plano Básico")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Plano de saúde criado com sucesso"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         // Valida os dados da requisição
@@ -35,14 +67,52 @@ class PlanoSaudeController extends Controller
         ], 201);
     }
 
-    // Exibe um plano de saúde específico
+    /**
+     * @OA\Get(
+     *     path="/planos/{id}",
+     *     tags={"Planos de Saúde"},
+     *     summary="Exibe um plano de saúde específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Dados do plano de saúde"
+     *     )
+     * )
+     */
     public function show($id)
     {
         $plano = PlanoSaude::findOrFail($id);
         return response()->json($plano);
     }
 
-    // Atualiza um plano de saúde existente no banco de dados
+    /**
+     * @OA\Put(
+     *     path="/planos/{id}",
+     *     tags={"Planos de Saúde"},
+     *     summary="Atualiza um plano de saúde específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="plano_descricao", type="string", example="Plano Premium")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Plano de saúde atualizado com sucesso"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         // Valida os dados da requisição
@@ -61,7 +131,23 @@ class PlanoSaudeController extends Controller
         ]);
     }
 
-    // Remove um plano de saúde do banco de dados
+    /**
+     * @OA\Delete(
+     *     path="/planos/{id}",
+     *     tags={"Planos de Saúde"},
+     *     summary="Remove um plano de saúde específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Plano de saúde removido com sucesso"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         $plano = PlanoSaude::findOrFail($id);

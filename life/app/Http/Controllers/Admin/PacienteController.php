@@ -10,16 +10,52 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+
+/**
+ * @OA\Tag(
+ *     name="Paciente",
+ *     description="API Endpoints de Paciente"
+ * )
+ */
 class PacienteController extends Controller
 {
-    // Exibe uma lista de pacientes
+    /**
+     * @OA\Get(
+     *     path="/pacientes",
+     *     tags={"Admin|Paciente"},
+     *     summary="Exibe uma lista de pacientes",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de pacientes"
+     *     )
+     * )
+     */
     public function index()
     {
         $pacientes = Paciente::all();
         return response()->json($pacientes);
     }
 
-    // Armazena um novo paciente no banco de dados
+     /**
+     * @OA\Post(
+     *     path="/pacientes",
+     *     tags={"Admin|Paciente"},
+     *     summary="Armazena um novo paciente no banco de dados",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="pac_nome", type="string", example="João Silva"),
+     *             @OA\Property(property="pac_data_nascimento", type="string", format="date", example="1980-01-01"),
+     *             @OA\Property(property="pac_email", type="string", example="joao.silva@example.com"),
+     *             @OA\Property(property="pac_password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Paciente criado com sucesso"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -42,14 +78,55 @@ class PacienteController extends Controller
         ], 201);
     }
 
-    // Exibe um paciente específico
+     /**
+     * @OA\Get(
+     *     path="/pacientes/{id}",
+     *     tags={"Admin|Paciente"},
+     *     summary="Exibe um paciente específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Dados do paciente"
+     *     )
+     * )
+     */
     public function show($id)
     {
         $paciente = Paciente::findOrFail($id);
         return response()->json($paciente);
     }
 
-    // Atualiza um paciente existente no banco de dados
+     /**
+     * @OA\Put(
+     *     path="/pacientes/{id}",
+     *     tags={"Admin|Paciente"},
+     *     summary="Atualiza um paciente existente no banco de dados",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="pac_nome", type="string", example="João Silva"),
+     *             @OA\Property(property="pac_data_nascimento", type="string", format="date", example="1980-01-01"),
+     *             @OA\Property(property="pac_email", type="string", example="joao.silva@example.com"),
+     *             @OA\Property(property="pac_password", type="string", example="senha123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Paciente atualizado com sucesso"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -76,7 +153,23 @@ class PacienteController extends Controller
         ]);
     }
 
-    // Remove um paciente do banco de dados
+    /**
+     * @OA\Delete(
+     *     path="/pacientes/{id}",
+     *     tags={"Admin|Paciente"},
+     *     summary="Remove um paciente do banco de dados",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Paciente removido com sucesso"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         $paciente = Paciente::findOrFail($id);
@@ -87,7 +180,30 @@ class PacienteController extends Controller
         ]);
     }
 
-    // Marca uma nova consulta
+    /**
+     * @OA\Post(
+     *     path="/pacientes/consultas",
+     *     tags={"Paciente","Consulta"},
+     *     summary="Marca uma nova consulta",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="med_codigo", type="integer", example=1),
+     *             @OA\Property(property="cons_horario", type="string", format="date-time", example="2024-07-11T10:00:00Z"),
+     *             @OA\Property(property="procedimentos", type="array", @OA\Items(type="integer"), example={1, 2, 3})
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Consulta marcada com sucesso"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Erro ao marcar a consulta"
+     *     )
+     * )
+     */
     public function marcarConsulta(Request $request)
     {
         $request->validate([
@@ -124,14 +240,57 @@ class PacienteController extends Controller
         ], 201);
     }
 
-    // Lista as consultas do paciente autenticado
+    /**
+     * @OA\Get(
+     *     path="/pacientes/consultas",
+     *     tags={"Paciente","Consulta"},
+     *     summary="Lista as consultas do paciente autenticado",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de consultas"
+     *     )
+     * )
+     */
     public function listarConsultas()
     {
         $consultas = Consulta::where('pac_codigo', auth()->user()->pac_codigo)->with('procedimentos')->get();
         return response()->json($consultas);
     }
 
-    // Exibe uma consulta específica do paciente autenticado
+    /**
+     * @OA\Get(
+     *     path="/pacientes/consultas/{consulta_id}",
+     *     tags={"Paciente","Consulta"},
+     *     summary="Exibe uma consulta específica do paciente autenticado",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="consulta_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Dados da consulta",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="cons_codigo", type="integer", example=1),
+     *             @OA\Property(property="cons_horario", type="string", format="date-time", example="2024-07-11T10:00:00Z"),
+     *             @OA\Property(property="cons_particular", type="boolean", example=false),
+     *             @OA\Property(property="pac_codigo", type="integer", example=1),
+     *             @OA\Property(property="med_codigo", type="integer", example=1),
+     *             @OA\Property(property="procedimentos", type="array", @OA\Items(
+     *                 @OA\Property(property="proc_codigo", type="integer", example=1),
+     *                 @OA\Property(property="proc_nome", type="string", example="Consulta de rotina")
+     *             ))
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Consulta não encontrada"
+     *     )
+     * )
+     */
     public function mostrarConsulta($consulta_id)
     {
         $consulta = Consulta::where('pac_codigo', auth()->user()->pac_codigo)
