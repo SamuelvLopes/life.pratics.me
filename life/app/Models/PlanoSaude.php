@@ -12,6 +12,8 @@ class PlanoSaude extends Model
 
     protected $table = 'plano_saude';
 
+    protected $primaryKey = 'plano_codigo';
+    
     protected $fillable = [
         'plano_descricao',
     ];

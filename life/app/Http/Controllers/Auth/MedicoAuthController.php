@@ -1,141 +1,71 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\Medico;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-/**
- * @OA\Tag(
- *     name="Medico",
- *     description="API Endpoints for Managing Medicos"
- * )
- * 
- * @OA\Schema(
- *     schema="Medico",
- *     type="object",
- *     required={"name", "email", "crm"},
- *     @OA\Property(
- *         property="name",
- *         type="string"
- *     ),
- *     @OA\Property(
- *         property="email",
- *         type="string"
- *     ),
- *     @OA\Property(
- *         property="crm",
- *         type="string"
- *     )
- * )
- */
-class MedicoController extends Controller
+class MedicoAuthController extends Controller
 {
-    /**
-     * @OA\Get(
-     *     path="/api/medico/",
-     *     tags={"Medico"},
-     *     summary="Get a list of medicos",
-     *     @OA\Response(
-     *         response=200,
-     *         description="A list with medicos"
-     *     )
-     * )
-     */
-    public function index()
+    public function register(Request $request)
     {
-        // Lógica do método
+        $validator = Validator::make($request->all(), [
+            'med_crm' => 'required|string|max:255|unique:medico,med_crm',
+            'med_nome' => 'required|string|max:255',
+            'med_email' => 'required|string|email|max:255|unique:medico,med_email',
+            'med_password' => 'required|string|min:8|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $medico = Medico::create([
+            'med_crm' => $request->med_crm,
+            'med_nome' => $request->med_nome,
+            'med_email' => $request->med_email,
+            'med_password' => Hash::make($request->med_password),
+        ]);
+
+        return response()->json([
+            'message' => 'Médico registrado com sucesso!',
+            'medico' => $medico
+        ], 201);
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/medico/",
-     *     tags={"Medico"},
-     *     summary="Store a newly created medico in storage",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Medico")
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Medico created successfully"
-     *     )
-     * )
-     */
-    public function store(Request $request)
+    public function login(Request $request)
     {
-        // Lógica do método
+        $credentials = $request->only('med_email', 'med_password');
+
+        if (! $token = Auth::guard('medico')->attempt(['med_email' => $credentials['med_email'], 'password' => $credentials['med_password']])) {
+            return response()->json(['error' => 'Não autorizado'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/medico/{id}",
-     *     tags={"Medico"},
-     *     summary="Display the specified medico",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the medico",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Details of the specified medico"
-     *     )
-     * )
-     */
-    public function show(string $id)
+    public function logout(Request $request)
     {
-        // Lógica do método
+        Auth::guard('medico')->logout();
+        return response()->json(['message' => 'Logout realizado com sucesso!'], 200);
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/medico/{id}",
-     *     tags={"Medico"},
-     *     summary="Update the specified medico in storage",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the medico",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Medico")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Medico updated successfully"
-     *     )
-     * )
-     */
-    public function update(Request $request, string $id)
+    public function me(Request $request)
     {
-        // Lógica do método
+        return response()->json(Auth::guard('medico')->user());
     }
 
-    /**
-     * @OA\Delete(
-     *     path="/api/medico/{id}",
-     *     tags={"Medico"},
-     *     summary="Remove the specified medico from storage",
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the medico",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=204,
-     *         description="Medico deleted successfully"
-     *     )
-     */
-    public function destroy(string $id)
+    protected function respondWithToken($token)
     {
-        // Lógica do método
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::guard('medico')->factory()->getTTL() * 60
+        ]);
     }
 }

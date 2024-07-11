@@ -12,8 +12,14 @@ class Especialidade extends Model
 
     protected $table = 'especialidade';
 
+    protected $primaryKey = 'espec_codigo';
+
     protected $fillable = [
         'espec_nome',
     ];
 
+    public function procedimentos()
+    {
+        return $this->belongsToMany(Procedimento::class, 'procedimento_especialidade', 'espec_codigo', 'proc_codigo');
+    }
 }

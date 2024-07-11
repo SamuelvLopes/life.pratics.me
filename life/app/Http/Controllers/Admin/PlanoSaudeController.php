@@ -2,64 +2,73 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\PlanoSaude;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PlanoSaudeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Exibe uma lista de planos de saúde
     public function index()
     {
-        //
+        $planos = PlanoSaude::all();
+        return response()->json($planos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Armazena um novo plano de saúde no banco de dados
     public function store(Request $request)
     {
-        //
+        // Valida os dados da requisição
+        $request->validate([
+            'plano_descricao' => 'required|string|max:255',
+        ]);
+
+        // Cria um novo plano de saúde
+        $plano = PlanoSaude::create([
+            'plano_descricao' => $request->plano_descricao,
+        ]);
+
+        // Retorna a resposta JSON
+        return response()->json([
+            'message' => 'Plano de saúde criado com sucesso!',
+            'plano' => $plano
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Exibe um plano de saúde específico
+    public function show($id)
     {
-        //
+        $plano = PlanoSaude::findOrFail($id);
+        return response()->json($plano);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Atualiza um plano de saúde existente no banco de dados
+    public function update(Request $request, $id)
     {
-        //
+        // Valida os dados da requisição
+        $request->validate([
+            'plano_descricao' => 'sometimes|required|string|max:255',
+        ]);
+
+        // Busca o plano de saúde pelo ID e atualiza os dados
+        $plano = PlanoSaude::findOrFail($id);
+        $plano->update($request->all());
+
+        // Retorna a resposta JSON
+        return response()->json([
+            'message' => 'Plano de saúde atualizado com sucesso!',
+            'plano' => $plano
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Remove um plano de saúde do banco de dados
+    public function destroy($id)
     {
-        //
-    }
+        $plano = PlanoSaude::findOrFail($id);
+        $plano->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'message' => 'Plano de saúde removido com sucesso!'
+        ]);
     }
 }

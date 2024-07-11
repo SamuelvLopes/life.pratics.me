@@ -11,9 +11,13 @@ class ConsultaProcedimento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'consulta_procedimento';
+    
+    protected $primaryKey = 'cp_codigo';
 
     protected $fillable = [
         'proc_codigo',
         'cons_codigo',
     ];
 }
+
+

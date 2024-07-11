@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ProcedimentoEspecialidadeSeeder::class,
             MedicoEspecialidadeSeeder::class,
             RelacionaTelefoneSeeder::class,
+            ConsultaProcedimentoSeeder::class,
         ]);
     }
 }

@@ -17,9 +17,9 @@ class ConsultaProcedimentoSeeder extends Seeder
         foreach ($consultas as $consulta) {
             $procedimentosSelecionados = $procedimentos->random(rand(1, 3));
             foreach ($procedimentosSelecionados as $procedimento) {
-                ConsultaProcedimento::factory()->create([
-                    'consulta_id' => $consulta->id,
-                    'procedimento_id' => $procedimento->id,
+                ConsultaProcedimento::create([
+                    'cons_codigo' => $consulta->cons_codigo,
+                    'proc_codigo' => $procedimento->proc_codigo,
                 ]);
             }
         }

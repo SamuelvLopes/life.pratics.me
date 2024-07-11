@@ -2,94 +2,62 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Paciente;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-/**
- * @OA\Tag(
- *     name="Paciente Authentication",
- *     description="API Endpoints of Paciente Authentication"
- * )
- */
 class PacienteAuthController extends Controller
 {
-    /**
-     * @OA\Post(
-     *     path="/api/paciente/register",
-     *     tags={"Paciente Authentication"},
-     *     summary="Register a new paciente",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="email", type="string", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", example="password"),
-     *             @OA\Property(property="password_confirmation", type="string", example="password")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Successful registration"
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Bad request"
-     *     )
-     * )
-     */
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:pacientes',
-            'password' => 'required|string|min:6|confirmed',
+        $validator = Validator::make($request->all(), [
+            'pac_nome' => 'required|string|max:255',
+            'pac_data_nascimento' => 'required|date',
+            'pac_email' => 'required|string|email|max:255|unique:paciente,pac_email',
+            'pac_password' => 'required|string|min:8|max:255',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
         $paciente = Paciente::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'pac_nome' => $request->pac_nome,
+            'pac_data_nascimento' => $request->pac_data_nascimento,
+            'pac_email' => $request->pac_email,
+            'pac_password' => Hash::make($request->pac_password),
         ]);
 
-        $token = Auth::guard('paciente')->login($paciente);
-
-        return response()->json(compact('paciente', 'token'), 201);
+        return response()->json([
+            'message' => 'Paciente registrado com sucesso!',
+            'paciente' => $paciente
+        ], 201);
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/paciente/login",
-     *     tags={"Paciente Authentication"},
-     *     summary="Login a paciente",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="email", type="string", example="john@example.com"),
-     *             @OA\Property(property="password", type="string", example="password")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful login"
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthorized"
-     *     )
-     * )
-     */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('pac_email', 'pac_password');
 
-        if (! $token = Auth::guard('paciente')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (! $token = Auth::guard('paciente')->attempt(['pac_email' => $credentials['pac_email'], 'password' => $credentials['pac_password']])) {
+            return response()->json(['error' => 'Não autorizado'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('paciente')->logout();
+        return response()->json(['message' => 'Logout realizado com sucesso!'], 200);
+    }
+
+    public function me(Request $request)
+    {
+        return response()->json(Auth::guard('paciente')->user());
     }
 
     protected function respondWithToken($token)
@@ -99,41 +67,5 @@ class PacienteAuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => Auth::guard('paciente')->factory()->getTTL() * 60
         ]);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/api/paciente/logout",
-     *     tags={"Paciente Authentication"},
-     *     summary="Logout a paciente",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful logout"
-     *     )
-     * )
-     */
-    public function logout()
-    {
-        Auth::guard('paciente')->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    /**
-     * @OA\Get(
-     *     path="/api/paciente/me",
-     *     tags={"Paciente Authentication"},
-     *     summary="Get the authenticated paciente",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful operation"
-     *     )
-     * )
-     */
-    public function me()
-    {
-        return response()->json(Auth::guard('paciente')->user());
     }
 }

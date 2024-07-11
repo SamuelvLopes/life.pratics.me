@@ -11,9 +11,16 @@ class Procedimento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'procedimento';
+    
+    protected $primaryKey = 'proc_codigo';
 
     protected $fillable = [
         'proc_nome',
         'proc_valor',
     ];
+
+    public function especialidades()
+    {
+        return $this->belongsToMany(Especialidade::class, 'procedimento_especialidade', 'proc_codigo', 'espec_codigo');
+    }
 }

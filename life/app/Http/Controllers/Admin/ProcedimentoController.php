@@ -2,64 +2,65 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Procedimento;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProcedimentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $procedimentos = Procedimento::all();
+        return response()->json($procedimentos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'proc_nome' => 'required|string|max:255',
+            'proc_valor' => 'required|numeric',
+        ]);
+
+        $procedimento = Procedimento::create([
+            'proc_nome' => $request->proc_nome,
+            'proc_valor' => $request->proc_valor,
+        ]);
+
+        return response()->json([
+            'message' => 'Procedimento criado com sucesso!',
+            'procedimento' => $procedimento
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $procedimento = Procedimento::findOrFail($id);
+        return response()->json($procedimento);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'proc_nome' => 'sometimes|required|string|max:255',
+            'proc_valor' => 'sometimes|required|numeric',
+        ]);
+
+        $procedimento = Procedimento::findOrFail($id);
+        $procedimento->update($request->all());
+
+        return response()->json([
+            'message' => 'Procedimento atualizado com sucesso!',
+            'procedimento' => $procedimento
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $procedimento = Procedimento::findOrFail($id);
+        $procedimento->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'message' => 'Procedimento removido com sucesso!'
+        ]);
     }
 }
