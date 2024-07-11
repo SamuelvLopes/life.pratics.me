@@ -9,7 +9,7 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}'
+            - '${APP_PORT:-80}:9900'
             - '${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
@@ -28,16 +28,7 @@ services:
             - mailpit
             - selenium
 
-    https-portal:
-        image: steveltn/https-portal:1
-        ports:
-            - '80'
-            - '443:9900'
-        environment:
-            DOMAINS: 'life.pratics.me -> http://laravel.test:80'
-            STAGE: 'production'
-        depends_on:
-            - laravel.test
+
 
     mysql:
         image: 'mysql/mysql-server:8.0'
