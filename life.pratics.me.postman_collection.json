@@ -1,0 +1,1197 @@
+{
+	"info": {
+		"_postman_id": "324137f5-08a0-4901-8c96-e80b81440416",
+		"name": "life.pratics.me",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16727551"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "medico",
+					"item": [
+						{
+							"name": "listar medicos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/medico",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar medico especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/1",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar médico específico",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/4",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar medico",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"med_crm\": \"43324\", \n    \"med_nome\": \"nome\", \n    \"med_email\":\"ssssa@org.com\",\n    \"med_password\":\"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/medico",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar medico",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"med_crm\": \"4325545\", \n    \"med_nome\": \"Samuel Lopes\", \n    \"med_email\":\"samuefl.l@org.com\",\n    \"med_password\":\"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/1",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "paciente",
+					"item": [
+						{
+							"name": "listar pacientes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar paciente especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar paciente específico",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/4",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar paciente",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pac_nome\": \"Jane Doe\",\n    \"pac_data_nascimento\": \"1985-05-15\",\n    \"pac_email\": \"janedoe@example.com\",\n    \"pac_password\": \"secretpassword\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar medico",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pac_nome\": \"Jane Doe\",\n    \"pac_data_nascimento\": \"1985-05-15\",\n    \"pac_email\": \"janedoe@example.com\",\n    \"pac_password\": \"secretpassword\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "procedimento",
+					"item": [
+						{
+							"name": "listar procedimento",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/procedimento",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"procedimento"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar procedimento especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/procedimento/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"procedimento",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar paciente específico",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/procedimento/4",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"procedimento",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar procedimento",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"proc_nome\": \"Consulta Especializada\",\n    \"proc_valor\": 200.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/procedimento",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"procedimento"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar procedimento",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"proc_nome\": \"Consulta Especializada\",\n    \"proc_valor\": 0.00\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/procedimento/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"procedimento",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "planos",
+					"item": [
+						{
+							"name": "listar planos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/plano",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"plano"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar plano especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/plano/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"plano",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar plano específico",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/plano/4",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"plano",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar plano",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plano_descricao\": \"Plano Avançado\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/plano",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"plano"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar procedimento",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plano_descricao\": \"Plano Avançado o\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/plano/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"plano",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "paciente",
+					"item": [
+						{
+							"name": "listar paciente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar paciente especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar paciente específico",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente/4",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar paciente",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pac_nome\": \"Jane Doe\",\n    \"pac_data_nascimento\": \"1985-05-15\",\n    \"pac_email\": \"janedoe@example.com\",\n    \"pac_password\": \"secretpassword\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/paciente",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"paciente"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar procedimento",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pac_nome\": \"Jane Doe\",\n    \"pac_data_nascimento\": \"1985-05-15\",\n    \"pac_email\": \"janedoe@example.com\",\n    \"pac_password\": \"secretpassword\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/admin/medico/2",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"admin",
+										"medico",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@life.pratics.me\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/admin/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"joaffdaahghh2n@example.com\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/admin/register",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/admin/me",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"admin",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medico",
+			"item": [
+				{
+					"name": "consultas",
+					"item": [
+						{
+							"name": "listar minhas consultas",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/medico/consultas",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"medico",
+										"consultas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar consulta",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/medico/consultas/179",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"medico",
+										"consultas",
+										"179"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "paciente",
+					"item": [
+						{
+							"name": "listar meus pacientes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/medico/pacientes/",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"medico",
+										"pacientes",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar meu paciente especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/medico/pacientes/65",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"medico",
+										"pacientes",
+										"65"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"med_email\": \"medico@life.pratics.me\",\n  \"med_password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/medico/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"medico",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{endpoint}}/medico/logout",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"medico",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "Consultas",
+					"item": [
+						{
+							"name": "marcar consulta",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"med_codigo\": 1,\n    \"cons_horario\": \"2024-07-15T10:00:00\",\n    \"procedimentos\": [1, 2, 3],\n    \"cons_particular\": true\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/paciente/consultas",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"paciente",
+										"consultas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar consultas",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/paciente/consultas",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"paciente",
+										"consultas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listar minha consulta especifica",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/paciente/consultas/269",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"paciente",
+										"consultas",
+										"269"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Paciente",
+					"item": [
+						{
+							"name": "me",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{endpoint}}/paciente/me",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"paciente",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pac_email\": \"paciente@life.pratics.me\",\n  \"pac_password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/paciente/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"paciente",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pac_email\": \"ahagenes@example.org\",\n  \"pac_password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{endpoint}}/paciente/logout",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"paciente",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9hZG1pbi9sb2dpbiIsImlhdCI6MTcyMDY5NDEwMiwiZXhwIjoxNzIwNjk3NzAyLCJuYmYiOjE3MjA2OTQxMDIsImp0aSI6IklEblk1MHBPUkhrYXMxUnciLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.pOslSRNGug9r98OrO0MzL4QC7bnM1rF1QW8ws8NGa_A",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "endpoint",
+			"value": "http://localhost/api/",
+			"type": "string"
+		}
+	]
+}
