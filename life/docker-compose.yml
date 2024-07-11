@@ -1,3 +1,5 @@
+version: '3'
+
 services:
     laravel.test:
         build:
@@ -27,6 +29,18 @@ services:
             - meilisearch
             - mailpit
             - selenium
+
+    https-portal:
+        image: steveltn/https-portal:1
+        ports:
+            - '80:80'
+            - '443:9900'
+        environment:
+            DOMAINS: 'life.pratics.me -> https://laravel.test:80'
+            STAGE: 'production'
+        depends_on:
+            - laravel.test
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -51,6 +65,7 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+
     redis:
         image: 'redis:alpine'
         ports:
@@ -66,6 +81,7 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+
     meilisearch:
         image: 'getmeili/meilisearch:latest'
         ports:
@@ -77,36 +93,4 @@ services:
         networks:
             - sail
         healthcheck:
-            test:
-                - CMD
-                - wget
-                - '--no-verbose'
-                - '--spider'
-                - 'http://127.0.0.1:7700/health'
-            retries: 3
-            timeout: 5s
-    mailpit:
-        image: 'axllent/mailpit:latest'
-        ports:
-            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
-            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
-        networks:
-            - sail
-    selenium:
-        image: selenium/standalone-chrome
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        volumes:
-            - '/dev/shm:/dev/shm'
-        networks:
-            - sail
-networks:
-    sail:
-        driver: bridge
-volumes:
-    sail-mysql:
-        driver: local
-    sail-redis:
-        driver: local
-    sail-meilisearch:
-        driver: local
+  
